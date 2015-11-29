@@ -1,6 +1,6 @@
 var fs = require('fs');
 var readSource = '/Users/christinebeaubrun/customers-in-Dublin/customers.text';
-var customersNearDublinOffice = require( './customers-near-dublin-office' );
+var customersNearDublinOffice = require( './locate-customers.js' );
 
 /** Using the readFile API - Asynchronous */
 fs.readFile(readSource, "utf8", function(err, data){

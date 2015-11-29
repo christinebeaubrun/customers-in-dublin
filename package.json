@@ -1,0 +1,14 @@
+{
+  "name": "customers-in-dublin",
+  "version": "1.0.0",
+  "description": "locating customers near dublin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christine Beaubrun <christinebeaubrun@gmail.com> (http://christinebeaubrun.tumblr.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.4.1"
+  }
+}
