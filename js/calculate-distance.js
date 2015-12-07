@@ -1,34 +1,37 @@
 module.exports = function ( args ) {
-    var lat1 = args.lat1,
-      long1 = args.long1,
-      lat2 = args.lat2,
-      long2 = args.long2,
-      unit = args.unit || ""; // return distance in miles by default
-    /*
-      write test that confirms it returns distance given:
-      -- lat and long
-    */
-    var radlat1 = Math.PI * lat1/180;
-    var radlon1 = Math.PI * long1/180;
+  /*
 
-    var radlat2 = Math.PI * lat2/180;
-    var radlon2 = Math.PI * long2/180;
+    Calculate distance (in kilometers) between two points given as (long, latt) pairs 
+    based on Haversine formula (http://en.wikipedia.org/wiki/Haversine_formula). 
+    Implementation inspired by JavaScript implementation from http://www.movable-type.co.uk/scripts/latlong.html
 
-    var theta = long1 - long2;
-    var radtheta = Math.PI * theta/180;
-    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    Takes an object with starting latitude and ending longitude for two points
+    Returns distance in kilometer(s)
+  */
 
-    dist = Math.acos(dist);
-    dist = dist * 180/Math.PI;
-    dist = dist * 60 * 1.1515;
+  var EARTH_RADIUS = 6371; // km
 
-    if (unit === "K") {
-      dist = dist * 1.609344;
-    }
+  var startLatt1 = args.lat1, // office latt
+    startLong1 = args.long1, // office long
+    endLatt2 = args.lat2, // customer latt
+    endLong2 = args.long2; // customer long
 
-    if (unit === "N") {
-      dist = dist * 0.8684;
-    }
-
-    return dist;
+  var toRadian = function ( degree ) {
+    // convert decimal degree into radian
+    return ( Math.PI * degree ) / 180;
   };
+
+  var diffLatt = toRadian( endLatt2 - startLatt1 );
+  var diffLong = toRadian( endLong2 - startLong1 );
+
+  var radStartLatt1 = toRadian( startLatt1 );
+  var radEndLatt2 = toRadian( endLatt2 );
+
+  var a = Math.sin( diffLatt / 2 ) * Math.sin( diffLatt / 2 ) +  
+          Math.cos( radStartLatt1 ) * Math.cos( radEndLatt2 ) *   
+          Math.sin( diffLong / 2 ) * Math.sin( diffLong / 2 );
+
+  var c = 2 * Math.asin( Math.sqrt( a ) );
+
+  return EARTH_RADIUS * c;
+};
