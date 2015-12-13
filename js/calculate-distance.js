@@ -7,6 +7,7 @@ module.exports = function ( args ) {
 
     Takes an object with starting latitude and ending longitude for two points
     Returns distance in kilometer(s)
+    
   */
 
   var EARTH_RADIUS = 6371; // km
