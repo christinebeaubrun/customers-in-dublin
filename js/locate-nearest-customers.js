@@ -1,13 +1,14 @@
 var calculateDistance = require( './calculate-distance' );
 
 module.exports = function ( options ) {
+  options = options || commandLineOptions;
   /* 
     
     Takes an object with:
-    -- starting latitude [ Number ]
-    -- ending longitude [ Number ]
+    -- startLatt [ Float ]
+    -- endLong [ Float ]
     -- customers [ Array ]
-    -- desired distance [ Number ] ( OPTIONAL )
+    -- desiredDistance [ Number ] ( OPTIONAL )
     -- sortStatus [ Boolean ] ( OPTIONAL )
     -- sortBy [ String ] ( OPTIONAL )
     -- format [ String ] ( OPTIONAL )
@@ -40,7 +41,7 @@ module.exports = function ( options ) {
   }
 
   var nearestCustomers = [];
-  customers.forEach( function ( customer ) {
+  customers.forEach( function ( customer ) { // iterate over arr of customers
     var customerLat = parseFloat( customer.latitude ),
       customerLong = parseFloat( customer.longitude );
     
@@ -51,19 +52,23 @@ module.exports = function ( options ) {
       long2: customerLong
     };
 
+    // calculate the difference between the two points
     if ( calculateDistance( args ) <= desiredDistance ) {
       if ( format ) {
+        // if format is true, organize customers by default name and user_id
         nearestCustomers.push({
           name: customer.name,
           user_id: customer.user_id
         });
       } else {
+        // format is false so push the entire object
         nearestCustomers.push( customer );
       }
     }
   });
 
   if ( sortStatus && sortBy ) {
+    // if sortStatus is true and property is provided
     return nearestCustomers.sort( function (customerA, customerB ) {
       var user_idA = customerA[ sortBy ],
         user_idB = customerB[ sortBy ];
@@ -71,6 +76,7 @@ module.exports = function ( options ) {
       return user_idA - user_idB;
     });
   } else {
+    // return results as is
     return nearestCustomers;
   }
 };
