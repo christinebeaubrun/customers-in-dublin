@@ -1,6 +1,8 @@
 module.exports = function ( args ) {
+  // what is arg? if an object, state it
+  
   /*
-
+    Qs: what does your code do? did you name your function ex. calculate-distance? did you name your args ex. start point / end point?
     Calculate distance (in kilometers) between two points given as (long, latt) pairs 
     based on Haversine formula (http://en.wikipedia.org/wiki/Haversine_formula). 
     Implementation inspired by JavaScript implementation from http://www.movable-type.co.uk/scripts/latlong.html
@@ -10,14 +12,14 @@ module.exports = function ( args ) {
     
   */
 
-  var EARTH_RADIUS = 6371; // km
+  var EARTH_RADIUS = 6371; // km ex EARTH_RADIOUS_KILOMETER
 
   var startLatt1 = args.lat1, // office latt
     startLong1 = args.long1, // office long
     endLatt2 = args.lat2, // customer latt
     endLong2 = args.long2; // customer long
 
-  var toRadian = function ( degree ) {
+  var toRadian = function ( degree ) { 
     // convert decimal degree into radian
     return ( Math.PI * degree ) / 180;
   };
@@ -31,8 +33,28 @@ module.exports = function ( args ) {
   var a = Math.sin( diffLatt / 2 ) * Math.sin( diffLatt / 2 ) +  
           Math.cos( radStartLatt1 ) * Math.cos( radEndLatt2 ) *   
           Math.sin( diffLong / 2 ) * Math.sin( diffLong / 2 );
+  /*
+      var a = (
+           (Math.sin( diffLatt / 2 ) * 
+            Math.sin( diffLatt / 2 )) +  
+          (
+            Math.cos( radStartLatt1 ) * 
+            Math.cos( radEndLatt2 ) *   
+            Math.sin( diffLong / 2 ) * 
+            Math.sin( diffLong / 2 )
+          )
+       );
+  */
 
   var c = 2 * Math.asin( Math.sqrt( a ) );
 
   return EARTH_RADIUS * c;
 };
+
+/*
+Things to keep in mind when rewriting this function
+function calculate_distance (start_point, end_point) {…}
+function toRadian (degree) {…}
+
+module.exports = calculate_distance;
+*/
