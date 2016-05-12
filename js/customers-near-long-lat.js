@@ -17,10 +17,10 @@ fs.readFile(readSource, "utf8", function(err, data){
   });
 
   var options = {
-  	startLatt: customStartLatt || 53.3381985,
-  	endLong: customEndLong || -6.2592576,
+  	startLatt: customStartLatt || 53.3381985, // remove the number and provide it as an arg instead
+  	endLong: customEndLong || -6.2592576, // remove the number and provide it as an arg instead
   	customers: customersData,
-  	desiredDistance: 100,
+  	desiredDistance: 100, // remove the number and provide it as an arg instead
     sort: true,
     sortBy: 'user_id',
     format: true
