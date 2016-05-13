@@ -30,13 +30,14 @@ module.exports = function ( options ) {
     return (arg === null || arg === undefined || arg === "");
   };
 
-  var length = customers.length;
+  var length = customers.length; // variable length needs to be more clear, ex numOfCustomers
 
+// why are you throwing an error below? 
   if ( isNullUndefinedEmpty( startLatt ) || isNullUndefinedEmpty( endLong ) ) {
     throw new Error( 'Please provide a starting and ending latitude and longitude' );
   }
 
-  if ( length === 0 ) {
+  if ( length === 0 ) { // ex just use customers.length instead of creating extra variable
     throw new Error( 'Please provide an array of customers' );
   }
 
